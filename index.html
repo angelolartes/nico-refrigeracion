@@ -451,7 +451,7 @@
             }, 300);
         }
 
-// Lógica de Solicitud de Turno Corregida
+        // Lógica de Solicitud de Turno
         function requestTurno() {
             const appliance = document.getElementById('t-appliance').value;
             const date = document.getElementById('t-date').value;
@@ -463,19 +463,6 @@
                 openAlert("Por favor, completá todos los campos para el turno antes de enviar por WhatsApp.");
                 return;
             }
-
-            // Formatear mensaje para Nico usando saltos de línea y emojis limpios
-            const msg = "Hola Nico! Quiero pedir un turno:\n\n" +
-                        "*Equipo:* " + appliance + "\n" +
-                        "*Fecha:* " + date + "\n" +
-                        "*Horario:* " + time + "\n" +
-                        "*Dirección:* " + address + "\n" +
-                        "*Problema:* " + issue + "\n\n" +
-                        "¿Me confirmás si podés? Gracias!";
-
-            // Usamos encodeURIComponent para asegurar que WhatsApp no rompa ningún carácter
-            window.open("https://wa.me/5491172446640?text=" + encodeURIComponent(msg), '_blank');
-        }
 
             // Formatear mensaje para Nico
             const msg = `Hola Nico! Quiero pedir un turno:
