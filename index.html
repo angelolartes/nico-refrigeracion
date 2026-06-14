@@ -451,7 +451,7 @@
             }, 300);
         }
 
-        // Lógica de Solicitud de Turno con Emojis Seguros
+       // Lógica de Solicitud de Turno - Solución Universal Anticorrupción
         function requestTurno() {
             const appliance = document.getElementById('t-appliance').value;
             const date = document.getElementById('t-date').value;
@@ -464,25 +464,35 @@
                 return;
             }
 
-            // Formatear la fecha para que se vea común (DD/MM/AAAA) en vez de AAAA-MM-DD
+            // Formatear la fecha a DD/MM/AAAA
             const fechaFormateada = date.split("-").reverse().join("/");
 
-            // Construimos el mensaje usando variables de texto limpias para cada emoji
-            const pin = " 📌 ";
-            const cal = " 📅 ";
-            const reloj = " ⏰ ";
-            const mapa = " 📍 ";
-            const herramientas = " 🛠️ ";
+            // Forzamos los emojis usando códigos Unicode estrictos en formato String para evitar que la web de WhatsApp los rompa
+            const pin = String.fromCodePoint(0x1F4CC);
+            const cal = String.fromCodePoint(0x1F4C5);
+            const reloj = String.fromCodePoint(0x23F1);
+            const mapa = String.fromCodePoint(0x1F4CD);
+            const herramientas = String.fromCodePoint(0x1F6E0);
 
-            const msg = "Hola Nico! Quiero pedir un turno:\n\n" +
-                        pin + " *Equipo:* " + appliance + "\n" +
-                        cal + " *Fecha:* " + fechaFormateada + "\n" +
-                        reloj + " *Horario:* " + time + "\n" +
-                        mapa + " *Dirección:* " + address + "\n" +
-                        herramientas + " *Problema:* " + issue + "\n\n" +
-                        "¿Me confirmás si podés? Gracias!";
+            // Construcción robusta del mensaje con saltos de línea explícitos
+            const lines = [
+                "Hola Nico! Quiero pedir un turno:",
+                "",
+                pin + " *Equipo:* " + appliance,
+                cal + " *Fecha:* " + fechaFormateada,
+                reloj + " *Horario:* " + time,
+                mapa + " *Dirección:* " + address,
+                herramientas + " *Problema:* " + issue,
+                "",
+                "¿Me confirmás si podés? Gracias!"
+            ];
 
-            window.open("https://wa.me/5491172446640?text=" + encodeURIComponent(msg), '_blank');
+            const msg = lines.join("\n");
+
+            // Usamos la URL de la API oficial que es mucho más estable en navegadores de PC e Instagram
+            const url = "https://api.whatsapp.com/send?phone=5491172446640&text=" + encodeURIComponent(msg);
+            
+            window.open(url, '_blank');
         }
 
         // Inicializar eventos en la carga del DOM
