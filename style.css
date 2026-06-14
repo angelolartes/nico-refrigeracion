@@ -1,0 +1,17 @@
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.service-card {
+    transition: transform 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Optimización móvil */
+@media (max-width: 640px) {
+    main { padding: 1rem; }
+    .grid { gap: 1rem; }
+}
