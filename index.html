@@ -3,63 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nico Refrigeración | Service Técnico</title>
+    <title>Nico Refrigeración - Turnos y Servicio Técnico</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        input, select, textarea {
+            background: #f8fafc !important;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- Barra de Navegación -->
-    <nav class="sticky top-0 bg-white/90 backdrop-blur-sm border-b border-slate-100 p-4 z-50">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <span class="font-bold text-xl text-blue-900">NICO</span>
-            <a href="https://wa.me/5491172446640" class="bg-green-600 text-white px-5 py-2 rounded-full font-medium hover:bg-green-700 transition">WhatsApp</a>
+    <!-- Navegación -->
+    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://i.postimg.cc/sMkkxjXs/logo-nico.jpg" alt="Nico Refrigeración" class="h-12 w-auto rounded-lg shadow-sm">
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold leading-none text-blue-900">NICO</span>
+                    <span class="text-[10px] uppercase tracking-widest font-semibold text-blue-600">Refrigeración</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex space-x-6 font-medium text-slate-600 mr-4">
+                    <a href="#servicios" class="hover:text-blue-600 transition">Servicios</a>
+                    <a href="#turnos" class="hover:text-blue-600 transition font-bold text-blue-700">Pedir Turno</a>
+                </div>
+                <a href="https://wa.me/5491172446640" target="_blank" class="bg-green-600 text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-green-700 transition flex items-center shadow-lg shadow-green-200">
+                    <span class="mr-2">WhatsApp</span>
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-6 mt-8">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Nico Refrigeración</h1>
-            <p class="text-lg text-slate-600">Servicio Técnico Especializado</p>
-        </header>
+    <!-- Hero Section -->
+    <header class="pt-32 pb-16 px-4 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-block bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
+                Técnico Matriculado
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                Nico <span class="text-blue-600">Refrigeración</span>
+            </h1>
+            <p class="text-xl text-slate-600 mb-8 leading-relaxed italic">
+                Instalación, Reparación y Mantenimiento de Aires, Heladeras y Lavarropas.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <div class="flex items-center space-x-2 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="text-blue-600 font-bold">✓</span>
+                    <span class="text-sm font-medium">Garantía Escrita</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span class="text-blue-600 font-bold">✓</span>
+                    <span class="text-sm font-medium">Repuestos Originales</span>
+                </div>
+            </div>
 
-        <!-- Servicios -->
-        <div class="grid md:grid-cols-3 gap-6 mb-12">
-            <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm text-center">
-                <div class="text-5xl mb-4">❄️</div>
-                <h3 class="font-bold mb-2">Aires Acondicionados</h3>
+            <a href="#turnos" class="inline-flex items-center justify-center bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-slate-800 transition-all transform hover:scale-105 shadow-xl w-full md:w-auto">
+                Reservar Turno Ahora
+            </a>
+        </div>
+    </header>
+
+    <!-- Sección de Servicios -->
+    <section id="servicios" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">¿En qué puedo ayudarte hoy?</h2>
+                <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded-full"></div>
             </div>
-            <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm text-center">
-                <div class="text-5xl mb-4">🧊</div>
-                <h3 class="font-bold mb-2">Heladeras y Freezers</h3>
-            </div>
-            <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm text-center">
-                <div class="text-5xl mb-4">⚙️</div>
-                <h3 class="font-bold mb-2">Lavarropas</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Aire Acondicionado -->
+                <div class="service-card p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="text-5xl mb-6">❄️</div>
+                    <h3 class="text-2xl font-bold mb-4">Aire Acondicionado</h3>
+                    <ul class="text-slate-600 space-y-2 text-sm">
+                        <li>• Instalación de equipos Split</li>
+                        <li>• Carga de gas R410 / R22</li>
+                        <li>• Limpieza de filtros y service</li>
+                        <li>• Reparación de plaquetas</li>
+                    </ul>
+                </div>
+
+                <!-- Heladeras -->
+                <div class="service-card p-10 bg-blue-600 text-white rounded-[2.5rem] shadow-xl shadow-blue-200">
+                    <div class="text-5xl mb-6">🧊</div>
+                    <h3 class="text-2xl font-bold mb-4">Heladeras y Freezers</h3>
+                    <ul class="text-blue-50 space-y-2 text-sm">
+                        <li>• Reparación de No Frost</li>
+                        <li>• Cambio de motor / compresor</li>
+                        <li>• Solución a pérdidas de frío</li>
+                        <li>• Termostatos y sensores</li>
+                    </ul>
+                </div>
+
+                <!-- Lavarropas -->
+                <div class="service-card p-10 bg-slate-50 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                    <div class="text-5xl mb-6">⚙️</div>
+                    <h3 class="text-2xl font-bold mb-4">Lavarropas</h3>
+                    <ul class="text-slate-600 space-y-2 text-sm">
+                        <li>• Cambio de rulemanes</li>
+                        <li>• Bombas de desagote</li>
+                        <li>• Reparación de puertas</li>
+                        <li>• Errores de placa electrónica</li>
+                    </ul>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Formulario de Turnos -->
-        <section id="turno" class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-            <h2 class="text-2xl font-bold mb-6">Solicitar Turno</h2>
-            <form id="turnoForm" class="space-y-4">
-                <select id="equipo" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <option value="Aire Acondicionado">Aire Acondicionado</option>
-                    <option value="Heladera/Freezer">Heladera/Freezer</option>
-                    <option value="Lavarropas">Lavarropas</option>
-                </select>
-                <input type="date" id="fecha" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <select id="horario" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <option value="Mañana">Mañana</option>
-                    <option value="Tarde">Tarde</option>
-                </select>
-                <input type="text" id="direccion" placeholder="Dirección completa (Calle y Altura)" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <textarea id="problema" placeholder="Breve descripción del problema" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200"></textarea>
-                <button type="submit" class="w-full bg-blue-900 text-white p-4 rounded-xl font-bold hover:bg-blue-800 transition">Confirmar por WhatsApp</button>
-            </form>
-        </section>
-    </main>
+    <!-- Sistema de Turnos -->
+    <section id="turnos" class="py-24 bg-slate-900 text-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-blue-400 font-bold tracking-widest uppercase text-xs">Logística Directa</span>
+                <h2 class="text-4xl font-bold mt-2">Pedir Turno a Domicilio</h2>
+                <p class="text-slate-400 mt-4">Completá los datos y enviame el pedido por WhatsApp para confirmar.</p>
+            </div>
 
-    <script src="script.js"></script>
+            <div class="bg-white text-slate-900 p-8 md:p-12 rounded-[3rem] shadow-2xl">
+                <form id="bookingForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2 ml-1">¿Qué equipo es?</label>
+                            <select id="t-appliance" required class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-500 outline-none transition">
+                                <option value="">Seleccionar equipo...</option>
+                                <option value="Aire Acondicionado">Aire Acondicionado</option>
+                                <option value="Heladera / Freezer">Heladera / Freezer</option>
+                                <option value="Lavarropas">Lavarropas</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2 ml-1">¿Qué día te queda bien?</label>
+                            <input type="date" id="t-date" required class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-500 outline-none transition">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2 ml-1">Franja Horaria</label>
+                            <select id="t-time" required class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-500 outline-none transition">
+                                <option value="Mañana (9hs a 13hs)">Mañana (9hs a 13hs)</option>
+                                <option value="Tarde (14hs a 18hs)">Tarde (14hs a 18hs)</option>
+                                <option value="A convenir">A convenir con Nico</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2 ml-1 text-blue-600">Dirección (Calle y Altura)</label>
+                            <input type="text" id="t-address" placeholder="Ej: Av. Rivadavia 1234, CABA" required class="w-full border-2 border-blue-100 rounded-2xl p-4 focus:border-blue-500 outline-none transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 ml-1">¿Qué falla hace el equipo? (Breve)</label>
+                        <textarea id="t-issue" rows="2" placeholder="Ej: No enfría abajo, hace ruido al centrifugar..." required class="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-blue-500 outline-none transition"></textarea>
+                    </div>
+
+                    <button type="button" onclick="requestTurno()" class="w-full bg-green-600 text-white py-5 rounded-[2rem] font-bold text-xl hover:bg-green-700 transition-all shadow-xl shadow-green-100 flex items-center justify-center space-x-3">
+                        <span>Enviar Turno por WhatsApp</span>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-slate-900 text-white pt-24 pb-12 border-t-8 border-blue-600">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-12 mb-16 text-center md:text-left">
+                <div>
+                    <img src="https://i.postimg.cc/sMkkxjXs/logo-nico.jpg" alt="Logo" class="h-16 rounded-xl mb-6 mx-auto md:mx-0">
+                    <h3 class="text-2xl font-bold mb-2">Nico Refrigeración</h3>
+                    <p class="text-slate-400 text-sm">Honestidad y service profesional en cada visita.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-500 uppercase tracking-widest text-xs mb-6">Urgencias y Turnos</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-center justify-center md:justify-start space-x-3 text-xl font-bold">
+                            <span>📱</span>
+                            <a href="tel:1172446640" class="hover:text-blue-400">11 7244-6640</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start space-x-3 text-slate-400">
+                            <span>📍</span>
+                            <span>CABA y GBA</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-500 uppercase tracking-widest text-xs mb-6">Horarios</h4>
+                    <p class="text-sm text-slate-400">Lunes a Viernes de 9 a 18hs.<br>Sábados de 9 a 13hs.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-10 text-center text-slate-500 text-xs">
+                <p>© 2024 Nico Refrigeración - Servicio Técnico Profesional.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica de Solicitud de Turno
+        function requestTurno() {
+            const appliance = document.getElementById('t-appliance').value;
+            const date = document.getElementById('t-date').value;
+            const time = document.getElementById('t-time').value;
+            const address = document.getElementById('t-address').value;
+            const issue = document.getElementById('t-issue').value;
+
+            if(!appliance || !date || !address || !issue) {
+                alert("Por favor, completá todos los campos para el turno.");
+                return;
+            }
+
+            // Formatear mensaje para Nico
+            const msg = `Hola Nico! Quiero pedir un turno:
+📌 Equipo: ${appliance}
+📅 Fecha: ${date}
+⏰ Horario: ${time}
+📍 Dirección: ${address}
+🛠️ Problema: ${issue}
+¿Me confirmás si podés? Gracias!`;
+
+            window.open(`https://wa.me/5491172446640?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Set min date to today for the input
+        document.getElementById('t-date').min = new Date().toISOString().split("T")[0];
+    </script>
 </body>
 </html>
